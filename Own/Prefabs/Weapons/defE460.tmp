@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://bsswslvken6ym"]
+
+[ext_resource type="Script" path="res://default_proyectile.gd" id="1_1shfk"]
+[ext_resource type="PackedScene" uid="uid://dvebsmbah3fjc" path="res://Own/Prefabs/movement_2d.tscn" id="2_g8m3p"]
+[ext_resource type="Texture2D" uid="uid://6xyyseqvd3v6" path="res://Own/Sprites/Flecha.png" id="3_ypmgu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rpuv5"]
+radius = 7.0
+
+[node name="DefaultProyectile" type="Area2D"]
+top_level = true
+script = ExtResource("1_1shfk")
+
+[node name="Movement 2D" parent="." instance=ExtResource("2_g8m3p")]
+speed = 30.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("3_ypmgu")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_rpuv5")
+
+[connection signal="ready" from="." to="." method="_on_ready"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

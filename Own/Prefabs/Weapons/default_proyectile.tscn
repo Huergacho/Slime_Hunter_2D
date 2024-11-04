@@ -1,0 +1,63 @@
+[gd_scene load_steps=9 format=3 uid="uid://bsswslvken6ym"]
+
+[ext_resource type="Script" path="res://default_proyectile.gd" id="1_1shfk"]
+[ext_resource type="PackedScene" uid="uid://dvebsmbah3fjc" path="res://Own/Prefabs/movement_2d.tscn" id="2_g8m3p"]
+[ext_resource type="Texture2D" uid="uid://6xyyseqvd3v6" path="res://Own/Sprites/Flecha.png" id="3_ypmgu"]
+[ext_resource type="PackedScene" uid="uid://lnxcmhpr36aq" path="res://Own/Prefabs/Defaults/damage_area.tscn" id="4_5cmm3"]
+
+[sub_resource type="Curve" id="Curve_0e8lj"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.146667, 1), 0.0, 0.0, 0, 0, Vector2(0.4, 0.725275), 0.0, 0.0, 0, 0, Vector2(0.626667, 0.406593), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveTexture" id="CurveTexture_51rm0"]
+curve = SubResource("Curve_0e8lj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fe0jl"]
+emission_shape_scale = Vector3(1, 10, 1)
+gravity = Vector3(0, 0, 0)
+scale_min = 2.0
+scale_max = 5.0
+alpha_curve = SubResource("CurveTexture_51rm0")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b16cm"]
+radius = 6.08276
+
+[node name="DefaultProyectile" type="Area2D"]
+top_level = true
+collision_layer = 4
+collision_mask = 10
+script = ExtResource("1_1shfk")
+
+[node name="Movement 2D" parent="." instance=ExtResource("2_g8m3p")]
+speed = 200.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+rotation = 1.5708
+texture = ExtResource("3_ypmgu")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(-6, 0)
+amount = 40
+process_material = SubResource("ParticleProcessMaterial_fe0jl")
+lifetime = 0.5
+trail_lifetime = 1.25
+trail_sections = 2
+trail_section_subdivisions = 1
+
+[node name="Damage_Area" parent="." instance=ExtResource("4_5cmm3")]
+collision_layer = 4
+collision_mask = 10
+
+[node name="CollisionShape2D" parent="Damage_Area" index="0"]
+shape = SubResource("CircleShape2D_b16cm")
+
+[connection signal="ready" from="." to="." method="_on_ready"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="makeHit" from="Damage_Area" to="." method="_on_damage_area_make_hit"]
+
+[editable path="Damage_Area"]

@@ -1,0 +1,59 @@
+[gd_scene load_steps=8 format=3 uid="uid://rqtewq6n1t1b"]
+
+[ext_resource type="Script" path="res://default_proyectile.gd" id="1_s4rqi"]
+[ext_resource type="PackedScene" uid="uid://dvebsmbah3fjc" path="res://Own/Prefabs/movement_2d.tscn" id="2_nbm1e"]
+[ext_resource type="PackedScene" uid="uid://lnxcmhpr36aq" path="res://Own/Prefabs/Defaults/damage_area.tscn" id="4_luee5"]
+
+[sub_resource type="Curve" id="Curve_0e8lj"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.146667, 1), 0.0, 0.0, 0, 0, Vector2(0.4, 0.725275), 0.0, 0.0, 0, 0, Vector2(0.626667, 0.406593), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveTexture" id="CurveTexture_51rm0"]
+curve = SubResource("Curve_0e8lj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fe0jl"]
+emission_shape_scale = Vector3(1, 10, 1)
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 1.0
+emission_ring_inner_radius = 0.0
+gravity = Vector3(0, 0, 0)
+scale_min = 2.0
+scale_max = 5.0
+alpha_curve = SubResource("CurveTexture_51rm0")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b16cm"]
+radius = 19.2354
+
+[node name="Meele Proyectile" type="Area2D"]
+top_level = true
+script = ExtResource("1_s4rqi")
+
+[node name="Movement 2D" parent="." instance=ExtResource("2_nbm1e")]
+speed = 100.0
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+visible = false
+amount = 40
+process_material = SubResource("ParticleProcessMaterial_fe0jl")
+lifetime = 0.5
+trail_lifetime = 1.25
+trail_sections = 2
+trail_section_subdivisions = 1
+
+[node name="Damage_Area" parent="." instance=ExtResource("4_luee5")]
+collision_mask = 2
+
+[node name="CollisionShape2D" parent="Damage_Area" index="0"]
+shape = SubResource("CircleShape2D_b16cm")
+
+[connection signal="ready" from="." to="." method="_on_ready"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="makeHit" from="Damage_Area" to="." method="_on_damage_area_make_hit"]
+
+[editable path="Damage_Area"]

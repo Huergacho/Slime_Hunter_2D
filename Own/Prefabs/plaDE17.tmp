@@ -1,0 +1,40 @@
+[gd_scene load_steps=10 format=3 uid="uid://dmjneirncbrbp"]
+
+[ext_resource type="Script" path="res://Own/Scripts/player.gd" id="1_k0cx1"]
+[ext_resource type="PackedScene" uid="uid://dvebsmbah3fjc" path="res://Own/Prefabs/movement_2d.tscn" id="4_32svy"]
+[ext_resource type="PackedScene" uid="uid://dfa26x4emewo0" path="res://Own/Prefabs/Weapons/meele_sword.tscn" id="4_ucb5c"]
+[ext_resource type="PackedScene" uid="uid://k6uyfr1es56k" path="res://Own/Prefabs/Defaults/weapon_holder.tscn" id="5_0mk2s"]
+[ext_resource type="PackedScene" uid="uid://cxp6srdvnx7w" path="res://Own/Prefabs/Defaults/hearth_canvas.tscn" id="5_5ycau"]
+[ext_resource type="PackedScene" uid="uid://dgdu1rmtuwb0q" path="res://Own/Prefabs/Weapons/bow.tscn" id="5_a3lva"]
+[ext_resource type="SpriteFrames" uid="uid://32ro8ljdyfys" path="res://Own/Sprites/player.tres" id="5_a7vlj"]
+[ext_resource type="Script" path="res://Own/Prefabs/MouseFollower.gd" id="5_ypxeq"]
+[ext_resource type="Texture2D" uid="uid://6xyyseqvd3v6" path="res://Own/Sprites/Flecha.png" id="9_dha64"]
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_k0cx1")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2.135, 2.135)
+
+[node name="Movement 2D" parent="." instance=ExtResource("4_32svy")]
+speed = 40.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = ExtResource("5_a7vlj")
+animation = &"Idle"
+
+[node name="HearthCanvas" parent="." instance=ExtResource("5_5ycau")]
+
+[node name="Marker2D" type="Marker2D" parent="."]
+script = ExtResource("5_ypxeq")
+
+[node name="Weapon_Holder" parent="Marker2D" instance=ExtResource("5_0mk2s")]
+position = Vector2(0, 7)
+equipped_weapons = [ExtResource("5_a3lva"), ExtResource("4_ucb5c")]
+
+[node name="Sprite2D" type="Sprite2D" parent="Marker2D"]
+texture = ExtResource("9_dha64")
+region_enabled = true
+
+[editable path="Marker2D/Weapon_Holder"]

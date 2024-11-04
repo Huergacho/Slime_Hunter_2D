@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://4yqfqm4galep"]
+
+[ext_resource type="PackedScene" uid="uid://dmjneirncbrbp" path="res://Own/Prefabs/player.tscn" id="1_rgabg"]
+[ext_resource type="PackedScene" uid="uid://di33y67yc6v1i" path="res://Own/Prefabs/enviroment.tscn" id="2_jvbvw"]
+[ext_resource type="PackedScene" uid="uid://kslyqkey8l0u" path="res://Own/Prefabs/Char/espanta_pajaros.tscn" id="3_ypddd"]
+[ext_resource type="PackedScene" uid="uid://0jd5rslfemx0" path="res://Own/Prefabs/Char/zombie.tscn" id="4_cv8q6"]
+[ext_resource type="PackedScene" uid="uid://hqcdbmysyqfx" path="res://Own/Prefabs/point_counter.tscn" id="5_wwjv3"]
+
+[node name="World" type="Node2D"]
+
+[node name="Enviroment" parent="." instance=ExtResource("2_jvbvw")]
+position = Vector2(-41, -50)
+
+[node name="Player" parent="." instance=ExtResource("1_rgabg")]
+position = Vector2(16, -1)
+
+[node name="Espanta Pajaros" parent="." instance=ExtResource("3_ypddd")]
+visible = false
+
+[node name="Espanta Pajaros2" parent="." instance=ExtResource("3_ypddd")]
+visible = false
+position = Vector2(0, -44)
+
+[node name="Zombie" parent="." instance=ExtResource("4_cv8q6")]
+position = Vector2(-84, 74)
+SPEED = 40
+points = null
+
+[node name="PointCounter" parent="." instance=ExtResource("5_wwjv3")]
+
+[node name="Label" parent="PointCounter" index="0"]
+offset_left = -1.0
+offset_top = -1.0
+offset_right = 86.0
+offset_bottom = 46.0
+text = "1111"
+
+[editable path="Enviroment"]
+[editable path="Player"]
+[editable path="Player/Marker2D/Weapon_Holder"]
+[editable path="Player/HealthBar"]
+[editable path="PointCounter"]

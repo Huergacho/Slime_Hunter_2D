@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dramgcsq65egx"]
+
+[ext_resource type="Script" path="res://Own/Scenes/manager.gd" id="1_7tjxv"]
+[ext_resource type="PackedScene" uid="uid://dmjneirncbrbp" path="res://Own/Prefabs/player.tscn" id="2_ivbxj"]
+
+[node name="Manager" type="Node2D"]
+script = ExtResource("1_7tjxv")
+player_Prefabs = Array[PackedScene]([ExtResource("2_ivbxj")])
+selectedPlayer = null
+
+[connection signal="ready" from="." to="." method="_on_ready"]

@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://dca3lrfnviusm"]
+
+[ext_resource type="Texture2D" uid="uid://3sre5k5htig4" path="res://Own/Sprites/Hearts.png" id="1_cj1w2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h6rf1"]
+atlas = ExtResource("1_cj1w2")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0guap"]
+atlas = ExtResource("1_cj1w2")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cykug"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h6rf1")
+}],
+"loop": true,
+"name": &"Fill",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0guap")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Hearth UI" type="Panel"]
+offset_right = 16.0
+offset_bottom = 16.0
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(29, 29)
+scale = Vector2(3.625, 3.625)
+sprite_frames = SubResource("SpriteFrames_cykug")
+animation = &"Fill"

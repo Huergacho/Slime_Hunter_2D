@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://hqcdbmysyqfx"]
+
+[ext_resource type="FontFile" uid="uid://bgtbc3bo4tbj" path="res://Own/Prefabs/Weapons/Dobidoo.ttf" id="1_b1lhw"]
+[ext_resource type="Script" path="res://Own/Scripts/UI/point_counter.gd" id="1_hqaye"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_bx0gh"]
+font = ExtResource("1_b1lhw")
+font_size = 21
+
+[node name="PointCounter" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="." groups=["PointCounter"]]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 0
+offset_right = 87.0
+offset_bottom = 47.0
+label_settings = SubResource("LabelSettings_bx0gh")
+script = ExtResource("1_hqaye")
+
+[connection signal="ready" from="Label" to="Label" method="_on_ready"]

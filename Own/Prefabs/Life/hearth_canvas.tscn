@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://cxp6srdvnx7w"]
+
+[ext_resource type="Script" path="res://Own/Scripts/Life/UI_HearthContainer.gd" id="1_b120o"]
+[ext_resource type="PackedScene" uid="uid://b7lk4jh0plmxa" path="res://Own/Prefabs/Life/life_controller.tscn" id="2_l32fb"]
+
+[node name="HearthCanvas" type="CanvasLayer"]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+top_level = true
+custom_minimum_size = Vector2(0, 1.905)
+layout_direction = 2
+offset_right = 8.0
+size_flags_horizontal = 8
+size_flags_stretch_ratio = 20.0
+theme_override_constants/separation = 50
+alignment = 1
+script = ExtResource("1_b120o")
+
+[node name="LifeController" parent="." instance=ExtResource("2_l32fb")]
+
+[connection signal="updateValue" from="LifeController" to="HBoxContainer" method="_on_life_controller_update_value"]

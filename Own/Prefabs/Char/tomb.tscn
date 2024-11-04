@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://be0bpe3jgrx7t"]
+
+[ext_resource type="Script" path="res://Own/Prefabs/Char/tomb.gd" id="1_56rv0"]
+[ext_resource type="Texture2D" uid="uid://cuvkv64bbcudx" path="res://fantasy_ [version 2.0]/cave_/cave_ [resources].png" id="2_oed85"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_14fjh"]
+atlas = ExtResource("2_oed85")
+region = Rect2(64, 123, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hpohj"]
+atlas = ExtResource("2_oed85")
+region = Rect2(48, 123, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yb36w"]
+atlas = ExtResource("2_oed85")
+region = Rect2(32, 123, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hg7vn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_14fjh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hpohj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yb36w")
+}],
+"loop": true,
+"name": &"Spawn",
+"speed": 5.0
+}]
+
+[node name="Tomb" type="Node2D"]
+script = ExtResource("1_56rv0")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_hg7vn")
+animation = &"Spawn"
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

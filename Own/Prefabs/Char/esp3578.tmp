@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=3 uid="uid://kslyqkey8l0u"]
+
+[ext_resource type="PackedScene" uid="uid://b7lk4jh0plmxa" path="res://Own/Prefabs/life_controller.tscn" id="1_e2rj3"]
+[ext_resource type="Script" path="res://Own/Prefabs/Char/espanta_pajaros.gd" id="1_hql4r"]
+[ext_resource type="Texture2D" uid="uid://cwmjvay00pv2w" path="res://Own/Sprites/Orc-Grunt.png" id="2_anc2x"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r45dg"]
+atlas = ExtResource("2_anc2x")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h1n2r"]
+atlas = ExtResource("2_anc2x")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5w5s0"]
+atlas = ExtResource("2_anc2x")
+region = Rect2(640, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_37tyb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r45dg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h1n2r")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5w5s0")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
+[node name="Espanta Pajaros" type="CharacterBody2D"]
+script = ExtResource("1_hql4r")
+
+[node name="LifeController" parent="." instance=ExtResource("1_e2rj3")]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_37tyb")
+
+[connection signal="die" from="LifeController" to="." method="_on_life_controller_die"]
+[connection signal="updateValue" from="LifeController" to="." method="_on_life_controller_update_value"]

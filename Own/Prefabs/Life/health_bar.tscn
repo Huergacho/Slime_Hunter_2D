@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://bc8nw104x1xg3"]
+
+[ext_resource type="Script" path="res://Own/Prefabs/Life/health_bar.gd" id="1_wa4kr"]
+[ext_resource type="Texture2D" uid="uid://b1yvao05inep6" path="res://Own/Sprites/Healt/LifeBar-Container.png" id="2_ucaii"]
+[ext_resource type="PackedScene" uid="uid://b7lk4jh0plmxa" path="res://Own/Prefabs/Life/life_controller.tscn" id="3_l258h"]
+[ext_resource type="Texture2D" uid="uid://cuwr5s7tegxry" path="res://Own/Sprites/Healt/LifeBar-Fill-Green.png" id="3_x4wbw"]
+
+[node name="HealthBar" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wa4kr")
+
+[node name="Panel" type="Panel" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_right = 29.0
+offset_bottom = 4.0
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Panel"]
+texture_filter = 1
+layout_mode = 0
+offset_top = -6.0
+offset_right = 28.0
+offset_bottom = 13.0
+value = 100.0
+nine_patch_stretch = true
+texture_under = ExtResource("2_ucaii")
+texture_progress = ExtResource("3_x4wbw")
+
+[node name="LifeController" parent="." instance=ExtResource("3_l258h")]
+
+[connection signal="updateValue" from="LifeController" to="." method="_on_life_controller_update_value"]
