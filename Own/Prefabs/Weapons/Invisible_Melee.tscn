@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://c6ga8ntn2wh3g"]
+
+[sub_resource type="Curve" id="Curve_i35jj"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_dds2g"]
+curve = SubResource("Curve_i35jj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2waf1"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(2.985, 8.32, 1)
+angle_min = -54.2
+angle_max = 170.3
+spread = 0.0
+gravity = Vector3(10, 10, 0)
+scale_min = 0.0
+scale_max = 2.0
+alpha_curve = SubResource("CurveTexture_dds2g")
+
+[node name="Invisible_Meele" type="Area2D"]
+top_level = true
+position = Vector2(-1, -11)
+
+[node name="BulletSpawnPoint" type="Node2D" parent="."]
+position = Vector2(1, -8)
+
+[node name="Pivot" type="Marker2D" parent="."]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(6, 2)
+rotation = 0.85583
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_2waf1")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

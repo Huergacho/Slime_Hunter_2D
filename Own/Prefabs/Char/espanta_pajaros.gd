@@ -10,6 +10,6 @@ func _on_life_controller_hit() -> void:
 	animated_sprite_2d.play("Damage")
 	onHitActions()
 	await(get_tree().create_timer(0.2).timeout)
-	animated_sprite_2d.play("default")
+	animated_sprite_2d.play("Idle")
 func onHitActions():
 	pass

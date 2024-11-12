@@ -54,7 +54,13 @@ motion_mode = 1
 script = ExtResource("1_4i8i7")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2.135, 2.135)
+zoom = Vector2(4.115, 4.115)
+limit_smoothed = true
+position_smoothing_enabled = true
+
+[node name="TextureRect" type="TextureRect" parent="Camera2D"]
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="Movement 2D" parent="." instance=ExtResource("2_t5tme")]
 speed = 100.0

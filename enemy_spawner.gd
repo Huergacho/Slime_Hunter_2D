@@ -1,26 +1,35 @@
 extends Area2D
 class_name Enemy_Spawner
-@export var spawners: Array[PackedScene] = []
+#@export var spawners: Array[PackedScene] = []
+@export var spawnPoints : Array[Node2D] = []
 var time = 0
-
-
-func _on_timer_timeout():
-	time+=1
-	var enemy_Spawns = spawners
-	for i in enemy_Spawns:
-		if(time >= i.time_start and time <= i.time_end):
-			if(i.spawn_delay_counter < i.spawn_delay):
-				i.spawn_delay_counter += 1
-			else:
-				i.spawn_delay_counter = 0
-				var newEnemy = i.enemy
-				var counter = 0
-				while (counter < i.enemy_quantity):
-					var enemySpawn = newEnemy.instantiate()
-					enemySpawn.global_position = get_random_position()
-					add_child(enemySpawn)
-					counter += 1
-					
+enum Type{
+	Once,
+	Multiple
+}
+@export var Spawn_Time : Type
+func _ready():
+	if(Spawn_Time == Type.Once):
+		SpawnEnemies()
+#func _on_timer_timeout():
+	#time+=1
+	#var enemy_Spawns = spawners
+	#for i in enemy_Spawns:
+		#if(time >= i.time_start and time <= i.time_end):
+			#if(i.spawn_delay_counter < i.spawn_delay):
+				#i.spawn_delay_counter += 1
+			#else:
+				#i.spawn_delay_counter = 0
+				#var newEnemy = i.enemy
+				#var counter = 0
+				#while (counter < i.enemy_quantity):
+					#var enemySpawn = newEnemy.instantiate()
+					#enemySpawn.global_position = get_random_position()
+					#add_child(enemySpawn)
+					#counter += 1
+func SpawnEnemies():
+	for i in spawnPoints:
+		if()
 func get_random_position():
 	var vpr = get_viewport_rect().size * randf_range(1.1,1.4)
 	#var vpr = get_viewport_rect().size * randf_range(1.1,1.4)

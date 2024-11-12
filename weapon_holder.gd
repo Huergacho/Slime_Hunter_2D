@@ -17,12 +17,8 @@ func addWeapon(newWeapon):
 	equipped_weapons.append(newWeapon)
 func equipWeapon(weapon:PackedScene):
 	current_weapon  = weapon.instantiate()
-	current_weapon.call_deferred("ChangeProyetileLayer",targetLayer)
 	add_child(current_weapon)
-	current_weapon.global_position = global_position
+	current_weapon.position = get_parent().global_position
+	current_weapon.call_deferred("ChangeProyetileLayer",targetLayer)
 func shootWeapon():
 	current_weapon.call_deferred("Shoot")
-#func MoveWeapon(movementDir : Vector2, lookDir : float):
-	##weapon_holder.current_weapon.global_position = global_position + direction * weapon_holder.weapon_radius
-	#current_weapon.rotation = lookDir
-	#current_weapon.global_position = movementDir * weapon_radius

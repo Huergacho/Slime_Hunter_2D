@@ -1,0 +1,248 @@
+[gd_scene load_steps=30 format=3 uid="uid://blhkbo2k4frwx"]
+
+[ext_resource type="Script" path="res://Own/Prefabs/Enemies/slime.gd" id="1_4pv1v"]
+[ext_resource type="Texture2D" uid="uid://77vg18sxtwkw" path="res://Own/Sprites/slime.png" id="3_ampyh"]
+[ext_resource type="PackedScene" uid="uid://bc8nw104x1xg3" path="res://Own/Prefabs/Life/health_bar.tscn" id="3_nlhpj"]
+[ext_resource type="Texture2D" uid="uid://cd6d1epwoe6p2" path="res://Own/Sprites/Healt/LifeBar-Fill-Rojo.png" id="4_6lbq6"]
+[ext_resource type="PackedScene" uid="uid://rnekno7g57fa" path="res://Own/Prefabs/Detection Area/detection_area.tscn" id="5_oj4ao"]
+[ext_resource type="Script" path="res://Own/Prefabs/Detection Area/detection_area.gd" id="6_8pihn"]
+[ext_resource type="PackedScene" uid="uid://k6uyfr1es56k" path="res://Own/Prefabs/Defaults/weapon_holder.tscn" id="6_i43md"]
+[ext_resource type="PackedScene" uid="uid://0ytsoghou0t6" path="res://Own/Prefabs/Weapons/default_meele.tscn" id="7_fmfp3"]
+[ext_resource type="Script" path="res://State_Machine.gd" id="7_jvybq"]
+[ext_resource type="Script" path="res://slime_Idle.gd" id="8_30f5c"]
+[ext_resource type="Script" path="res://Slime_Chase.gd" id="10_c2jtf"]
+[ext_resource type="Script" path="res://Own/Prefabs/Enemies/attack_state.gd" id="10_v67ai"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_12oal"]
+atlas = ExtResource("3_ampyh")
+region = Rect2(32, 224, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8avsf"]
+atlas = ExtResource("3_ampyh")
+region = Rect2(64, 224, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i1mbl"]
+atlas = ExtResource("3_ampyh")
+region = Rect2(96, 224, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_utwiv"]
+atlas = ExtResource("3_ampyh")
+region = Rect2(0, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wntr6"]
+atlas = ExtResource("3_ampyh")
+region = Rect2(32, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dqgv2"]
+atlas = ExtResource("3_ampyh")
+region = Rect2(64, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vas3h"]
+atlas = ExtResource("3_ampyh")
+region = Rect2(96, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jgrdw"]
+atlas = ExtResource("3_ampyh")
+region = Rect2(0, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ng2q"]
+atlas = ExtResource("3_ampyh")
+region = Rect2(160, 160, 32, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_q8ydd"]
+load_path = "res://.godot/imported/slime.png-793c87c526593fa6af7eed8ec677e969.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tjekn"]
+atlas = SubResource("CompressedTexture2D_q8ydd")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dnxyv"]
+atlas = SubResource("CompressedTexture2D_q8ydd")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cfb4c"]
+atlas = SubResource("CompressedTexture2D_q8ydd")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_565aq"]
+atlas = SubResource("CompressedTexture2D_q8ydd")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8lpbo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_12oal")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8avsf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i1mbl")
+}],
+"loop": true,
+"name": &"Attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_utwiv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wntr6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dqgv2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vas3h")
+}],
+"loop": true,
+"name": &"Chasing",
+"speed": 9.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jgrdw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ng2q")
+}],
+"loop": true,
+"name": &"Damage",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tjekn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dnxyv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cfb4c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_565aq")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k7vnw"]
+size = Vector2(21, 12)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kii4k"]
+radius = 13.8675
+
+[node name="Slime" type="CharacterBody2D" groups=["Enemy"]]
+collision_layer = 2
+collision_mask = 9
+script = ExtResource("1_4pv1v")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_8lpbo")
+animation = &"Attack"
+frame_progress = 0.320996
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1.5, 2)
+shape = SubResource("RectangleShape2D_k7vnw")
+
+[node name="HealthBar" parent="." instance=ExtResource("3_nlhpj")]
+offset_left = -13.0
+offset_top = -13.0
+offset_right = -13.0
+offset_bottom = -13.0
+
+[node name="TextureProgressBar" parent="HealthBar/Panel" index="0"]
+texture_progress = ExtResource("4_6lbq6")
+
+[node name="Detection Area" parent="." instance=ExtResource("5_oj4ao")]
+scale = Vector2(1.3, 1.3)
+collision_layer = 2
+collision_mask = 5
+
+[node name="Attack_Area" type="Area2D" parent="."]
+scale = Vector2(1.3, 1.3)
+collision_layer = 2
+collision_mask = 5
+monitorable = false
+script = ExtResource("6_8pihn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Attack_Area"]
+shape = SubResource("CircleShape2D_kii4k")
+debug_color = Color(0.964604, 0, 0.462852, 0.42)
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+avoidance_enabled = true
+debug_enabled = true
+debug_use_custom = true
+debug_path_custom_color = Color(0.44376, 0.530378, 0.992094, 1)
+
+[node name="RefreshTimer" type="Timer" parent="NavigationAgent2D"]
+wait_time = 0.3
+autostart = true
+
+[node name="Weapon_Holder" parent="." instance=ExtResource("6_i43md")]
+visible = false
+position = Vector2(1, 0)
+equipped_weapons = [ExtResource("7_fmfp3")]
+targetLayer = 1
+
+[node name="Attack Timer" type="Timer" parent="."]
+unique_name_in_owner = true
+one_shot = true
+autostart = true
+
+[node name="State_Machine" type="Node" parent="." node_paths=PackedStringArray("default_state")]
+script = ExtResource("7_jvybq")
+default_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="State_Machine" node_paths=PackedStringArray("fsm_owner")]
+script = ExtResource("8_30f5c")
+fsm_owner = NodePath("../..")
+wander_waitTime = 1.2
+wander_speed = 25.0
+
+[node name="Wander time" type="Timer" parent="State_Machine/Idle"]
+autostart = true
+
+[node name="Chase" type="Node" parent="State_Machine" node_paths=PackedStringArray("fsm_owner")]
+script = ExtResource("10_c2jtf")
+chase_speed = 15.0
+fsm_owner = NodePath("../..")
+detectionRadius = 2
+
+[node name="PathRefreshRate" type="Timer" parent="State_Machine/Chase"]
+wait_time = 0.5
+
+[node name="Attack" type="Node" parent="State_Machine" node_paths=PackedStringArray("fsm_owner")]
+script = ExtResource("10_v67ai")
+fsm_owner = NodePath("../..")
+attackColor = Color(1, 0, 0, 0.501961)
+
+[node name="AttackCooldown" type="Timer" parent="State_Machine/Attack"]
+
+[connection signal="die" from="HealthBar/LifeController" to="." method="_on_life_controller_die"]
+[connection signal="hit" from="HealthBar/LifeController" to="." method="_on_life_controller_hit"]
+[connection signal="bodyExited" from="Detection Area" to="State_Machine/Chase" method="_on_detection_area_body_exited"]
+[connection signal="setTarget" from="Detection Area" to="." method="_on_detection_area_set_target"]
+[connection signal="setTarget" from="Detection Area" to="State_Machine/Idle" method="_on_detection_area_set_target"]
+[connection signal="area_entered" from="Attack_Area" to="Attack_Area" method="_on_area_entered"]
+[connection signal="area_exited" from="Attack_Area" to="Attack_Area" method="_on_area_exited"]
+[connection signal="bodyExited" from="Attack_Area" to="State_Machine/Attack" method="_on_attack_area_body_exited"]
+[connection signal="body_entered" from="Attack_Area" to="Attack_Area" method="_on_body_entered"]
+[connection signal="body_exited" from="Attack_Area" to="Attack_Area" method="_on_body_exited"]
+[connection signal="setTarget" from="Attack_Area" to="State_Machine/Chase" method="_on_attack_area_set_target"]
+[connection signal="timeout" from="NavigationAgent2D/RefreshTimer" to="." method="_on_refresh_timer_timeout"]
+[connection signal="timeout" from="Attack Timer" to="." method="_on_attack_timer_timeout"]
+[connection signal="timeout" from="State_Machine/Idle/Wander time" to="State_Machine/Idle" method="_on_wander_time_timeout"]
+[connection signal="timeout" from="State_Machine/Chase/PathRefreshRate" to="State_Machine/Chase" method="_on_path_refresh_rate_timeout"]
+[connection signal="timeout" from="State_Machine/Attack/AttackCooldown" to="State_Machine/Attack" method="_on_attack_cooldown_timeout"]
+
+[editable path="HealthBar"]
+[editable path="Detection Area"]
+[editable path="Weapon_Holder"]

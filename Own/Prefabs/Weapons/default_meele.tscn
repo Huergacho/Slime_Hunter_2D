@@ -1,6 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://0ytsoghou0t6"]
+[gd_scene load_steps=3 format=3 uid="uid://0ytsoghou0t6"]
 
-[ext_resource type="Script" path="res://Own/Scripts/Weapons/meele_sword.gd" id="1_4nn7f"]
+[ext_resource type="Script" path="res://Own/Scripts/Weapons/default_meele.gd" id="1_4nn7f"]
 
-[node name="Default_Meele" type="Node2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_r717k"]
+
+[node name="Default_Meele" type="Area2D"]
 script = ExtResource("1_4nn7f")
+attack_cooldown = 0.5
+infiniteAmmo = true
+
+[node name="BulletSpawnPoint" type="Node2D" parent="."]
+position = Vector2(1, -8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_r717k")

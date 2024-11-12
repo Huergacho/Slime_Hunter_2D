@@ -1,5 +1,4 @@
 extends Base_Enemy
-
 var target : Node2D
 @export var SPEED = 100
 @onready var navigation_agent_2d: NavigationAgent2D = $NavigationAgent2D

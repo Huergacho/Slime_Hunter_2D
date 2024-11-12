@@ -1,13 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://4yqfqm4galep"]
+[gd_scene load_steps=7 format=3 uid="uid://4yqfqm4galep"]
 
 [ext_resource type="Script" path="res://Own/Scenes/Level.gd" id="1_56rq0"]
 [ext_resource type="PackedScene" uid="uid://bxupybagd6ihw" path="res://Own/Levels/level_1.tscn" id="2_0jh6c"]
 [ext_resource type="PackedScene" uid="uid://dramgcsq65egx" path="res://manager.tscn" id="3_nbkdy"]
 [ext_resource type="PackedScene" uid="uid://w81h6vgi2j6w" path="res://Own/Levels/level_2.tscn" id="3_rhu6a"]
+[ext_resource type="PackedScene" uid="uid://dmjneirncbrbp" path="res://Own/Prefabs/player.tscn" id="5_08am5"]
+[ext_resource type="PackedScene" uid="uid://c3jxlw0xlo8qv" path="res://Own/Prefabs/Char/Knight.tscn" id="6_2uhj5"]
 
 [node name="Region 1" type="Node2D"]
 script = ExtResource("1_56rq0")
-levels = Array[PackedScene]([ExtResource("3_rhu6a"), ExtResource("2_0jh6c")])
+levels = Array[PackedScene]([ExtResource("2_0jh6c"), ExtResource("3_rhu6a")])
 
 [node name="Manager" parent="." instance=ExtResource("3_nbkdy")]
-selectedPlayer = 0
+player_Prefabs = Array[PackedScene]([ExtResource("5_08am5"), ExtResource("6_2uhj5")])
+selectedPlayer = 1

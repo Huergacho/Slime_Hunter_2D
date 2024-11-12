@@ -1,6 +1,10 @@
 extends Node2D
+enum Class{
+	Archer,
+	Warrior
+}
 @export var player_Prefabs :Array[PackedScene]= []
-@export var selectedPlayer : int = 0
+@export var selectedPlayer : Class = 0
 var currentPlayer : Node2D
 func SpawnPlayer():
 	var player_scene = player_Prefabs[selectedPlayer]

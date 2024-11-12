@@ -7,6 +7,7 @@ class_name Default_Meele
 func DoAction():
 	var newProyectile = proyectile.instantiate()
 	add_child(newProyectile)
+	newProyectile.call_deferred("setCollisionLayer",attackLayers)
 	if(bullet_spawn_point == null):
 		bullet_spawn_point = get_node("%BulletSpawnPoint")
 	newProyectile.position = bullet_spawn_point.global_position
