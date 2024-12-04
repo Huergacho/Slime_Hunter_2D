@@ -2,12 +2,14 @@
 
 [ext_resource type="Script" path="res://Own/Scripts/Enviroment/night_timer.gd" id="1_b7uba"]
 
-[node name="NightTimer" type="Node2D"]
+[node name="NightTimer" type="Node2D" groups=["Cycler"]]
 script = ExtResource("1_b7uba")
 
 [node name="NightTimeSetter" type="Timer" parent="."]
+wait_time = 3.0
 
 [node name="DayTimeSetter" type="Timer" parent="."]
+wait_time = 6.0
 
 [connection signal="timeout" from="NightTimeSetter" to="." method="_on_night_time_setter_timeout"]
 [connection signal="timeout" from="DayTimeSetter" to="." method="_on_day_time_setter_timeout"]

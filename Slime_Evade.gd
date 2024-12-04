@@ -1,23 +1,23 @@
 extends ME_State
-class_name Slime_Chase
+class_name Evade
 var move_direction : Vector2
 @onready var animated_sprite_2d: AnimatedSprite2D = $"../../AnimatedSprite2D" 
 var isDayTime : bool = true
 @onready var ray_cast_2d: RayCast2D = $"../../Raycasts/RayCast2D"
-
 @export var obstacleDetectionDistance : float = 1
 @export var avoiding_force : float = 100
 func Enter():
+	print("Estoy en evade")
 	animated_sprite_2d.play("Chasing")
-	#path_refresh_rate.start()
 	SetTarget()
 func Exit():
 	fsm_owner.velocity = Vector2.ZERO
 func Physic_Update(delta : float):
 	if(fsm_owner):
-		MoveTowardsTarget()
-	#navigation_agent_2d.velocity = Vector2.ZERO
-func MoveTowardsTarget():
+		MoveAgainstTarget()
+	if(!isDayTime):
+		Change.emit(self,"chase")
+func MoveAgainstTarget():
 	if(target == null):
 		return
 	var direction = (target.global_position - fsm_owner.global_position).normalized()
@@ -28,18 +28,9 @@ func MoveTowardsTarget():
 		velocity += avoid_direction * avoiding_force  # Ajusta la fuerza de evitación
 	fsm_owner.velocity = velocity
 
-#func MakePath(target : CharacterBody2D):
-	#if(target == null):
-		#return
-	#navigation_agent_2d.target_position = target.global_position
-	
+
 func _on_detection_area_body_exited(body: Node2D) -> void:
 	Change.emit(self,"idle")
 
-#func _on_path_refresh_rate_timeout() -> void:
-	#MakePath(target)
 func SetTarget():
-	target = get_tree().get_first_node_in_group("Player")
-func _on_attack_area_set_target(body: Node2D) -> void:
-	if(!isDayTime):
-		Change.emit(self,"attack")
+	target = fsm_owner.returnHome()

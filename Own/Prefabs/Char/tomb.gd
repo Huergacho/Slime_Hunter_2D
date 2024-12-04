@@ -24,8 +24,7 @@ func OnSpawn():
 	var spawned = spawnedCharacter.instantiate()
 	add_sibling(spawned)
 	spawned.global_position = global_position
-	queue_free()
-
+	spawned.call_deferred("SetHome", self)
 func _on_timer_timeout() -> void:
 	OnSpawn()
 

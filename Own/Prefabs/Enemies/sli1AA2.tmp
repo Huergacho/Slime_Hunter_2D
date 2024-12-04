@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://blhkbo2k4frwx"]
+[gd_scene load_steps=31 format=3 uid="uid://blhkbo2k4frwx"]
 
 [ext_resource type="Script" path="res://Own/Prefabs/Enemies/slime.gd" id="1_4pv1v"]
 [ext_resource type="Texture2D" uid="uid://77vg18sxtwkw" path="res://Own/Sprites/slime.png" id="3_ampyh"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://slime_Idle.gd" id="8_30f5c"]
 [ext_resource type="Script" path="res://Slime_Chase.gd" id="10_c2jtf"]
 [ext_resource type="Script" path="res://Own/Prefabs/Enemies/attack_state.gd" id="10_v67ai"]
+[ext_resource type="Script" path="res://Slime_Evade.gd" id="11_d0fd2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_12oal"]
 atlas = ExtResource("3_ampyh")
@@ -219,6 +220,9 @@ SPEED = 30
 SPEED2 = 70
 DETECTION_RADIO = 10
 
+[node name="Evade" type="Node" parent="State_Machine"]
+script = ExtResource("11_d0fd2")
+
 [node name="Attack" type="Node" parent="State_Machine"]
 script = ExtResource("10_v67ai")
 attackColor = Color(1, 0, 0, 0.501961)
@@ -239,6 +243,7 @@ collision_mask = 4
 [connection signal="die" from="HealthBar/LifeController" to="." method="_on_life_controller_die"]
 [connection signal="hit" from="HealthBar/LifeController" to="." method="_on_life_controller_hit"]
 [connection signal="bodyExited" from="Detection Area" to="State_Machine/Chase" method="_on_detection_area_body_exited"]
+[connection signal="bodyExited" from="Detection Area" to="State_Machine/Evade" method="_on_detection_area_body_exited"]
 [connection signal="setTarget" from="Detection Area" to="." method="_on_detection_area_set_target"]
 [connection signal="setTarget" from="Detection Area" to="State_Machine/Idle" method="_on_detection_area_set_target"]
 [connection signal="area_entered" from="Attack_Area" to="Attack_Area" method="_on_area_entered"]

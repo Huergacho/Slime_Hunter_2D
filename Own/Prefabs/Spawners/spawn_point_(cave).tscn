@@ -1,10 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://bs0loxeee3yag"]
+[gd_scene load_steps=5 format=3 uid="uid://bs0loxeee3yag"]
 
 [ext_resource type="Script" path="res://Own/Prefabs/Char/tomb.gd" id="1_p4lnq"]
+[ext_resource type="Texture2D" uid="uid://13en6gwxjk2s" path="res://fantasy_ [version 2.0]/desert_/desert_ [resources].png" id="2_gwe8g"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ri63a"]
+atlas = ExtResource("2_gwe8g")
+region = Rect2(64, 128, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fm6cx"]
 animations = [{
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ri63a")
+}],
 "loop": true,
 "name": &"Spawn",
 "speed": 5.0
@@ -14,6 +22,8 @@ animations = [{
 script = ExtResource("1_p4lnq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -0.5)
 sprite_frames = SubResource("SpriteFrames_fm6cx")
 animation = &"Spawn"
 

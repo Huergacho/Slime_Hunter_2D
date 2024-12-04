@@ -8,8 +8,10 @@ func _ready():
 	night_timer.connect("isDayTime",ChangeMood)
 func ChangeMood(isDay:bool):
 	if(isDay):
+		print("Cambio mood a dia")
 		var colorShift = get_tree().create_tween()
 		colorShift.tween_property(self, "color", dayColor, 1)
 	else:
+		print("Cambio mood a noche")
 		var colorShift = get_tree().create_tween()
 		colorShift.tween_property(self, "color", nightColor, 1)
