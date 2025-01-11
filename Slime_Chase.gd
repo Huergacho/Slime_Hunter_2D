@@ -4,6 +4,7 @@ class_name Slime_Chase
 @onready var obstacle_avoidance: Node = $"../../Obstacle Avoidance"
 var direction : Vector2
 @onready var NightTimer = get_tree().get_first_node_in_group("Cycler")
+@export var distance : float = 1
 func Enter():
 	animated_sprite_2d.play("Chasing")
 	SetTarget()
@@ -19,7 +20,11 @@ func MoveTowardsTarget():
 	if(NightTimer.DayTime):
 		direction = (target.global_position + fsm_owner.global_position).normalized()
 	else: 
-		direction = (target.global_position - fsm_owner.global_position).normalized()
+		var dist = (target.global_position - fsm_owner.global_position).length()
+		if (dist > distance):	
+			direction = (target.global_position - fsm_owner.global_position).normalized()
+		else:
+			Change.emit(self,"attack")
 	var velocity = direction * SPEED
 	
 	fsm_owner.velocity = velocity + obstacle_avoidance.avoidVel
