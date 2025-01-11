@@ -81,7 +81,7 @@ position = Vector2(-401, -12)
 one_shot = true
 
 [node name="SpawnTick" parent="Spawners/Spawn Point (Cave)" index="2"]
-one_shot = true
+wait_time = 5.315
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 color = Color(1, 0.568627, 0, 1)

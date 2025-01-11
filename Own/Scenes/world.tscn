@@ -13,4 +13,4 @@ levels = Array[PackedScene]([ExtResource("2_0jh6c"), ExtResource("3_rhu6a")])
 
 [node name="Manager" parent="." instance=ExtResource("3_nbkdy")]
 player_Prefabs = Array[PackedScene]([ExtResource("5_08am5"), ExtResource("6_2uhj5")])
-selectedPlayer = 1
+selectedPlayer = 0

@@ -14,7 +14,6 @@ func _physics_process(delta: float) -> void:
 func onHitActions():
 	target = get_tree().get_first_node_in_group("Player")
 func SetHome(newHome : Node2D):
-	print("DASSDAD")
 	Home  = newHome
 func returnHome():
 	return Home

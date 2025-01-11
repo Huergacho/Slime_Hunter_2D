@@ -15,9 +15,9 @@ func _ready() -> void:
 	SpawnEnemies()
 func SpawnEnemies():
 	if(Type == SpawnType.Once):
-		timer.start(randf_range(0.2,3))
+		timer.start(randf_range(0.2,1))
+		spawn_tick.autostart = false
 	if(Type == SpawnType.Multiple):
-		spawn_tick.autostart = true
 		spawn_tick.start()
 	
 func OnSpawn():
@@ -30,4 +30,4 @@ func _on_timer_timeout() -> void:
 
 
 func _on_spawn_tick_timeout() -> void:
-	timer.start(randf_range(0.2,3))
+	OnSpawn()

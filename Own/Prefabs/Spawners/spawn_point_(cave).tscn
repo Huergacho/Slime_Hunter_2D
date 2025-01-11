@@ -20,6 +20,7 @@ animations = [{
 
 [node name="Spawn Point (Cave)" type="Node2D"]
 script = ExtResource("1_p4lnq")
+Type = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -31,6 +32,7 @@ animation = &"Spawn"
 
 [node name="SpawnTick" type="Timer" parent="."]
 wait_time = 0.4
+autostart = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="SpawnTick" to="." method="_on_spawn_tick_timeout"]
