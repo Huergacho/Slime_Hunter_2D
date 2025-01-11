@@ -5,7 +5,6 @@ var move_direction : Vector2
 @export var wander_waitTime : float
 @onready var animated_sprite_2d: AnimatedSprite2D = $"../../AnimatedSprite2D"
 @onready var wander_time: Timer = $"Wander time"
-@onready var IsDayTime : bool
 func Enter():
 	RandomWander()
 	animated_sprite_2d.play("Idle")

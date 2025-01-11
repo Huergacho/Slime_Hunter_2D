@@ -6,7 +6,8 @@ var AttackCooldown : float = 0.3
 @onready var hasLeft : bool = false
 @onready var animated_sprite_2d: AnimatedSprite2D = $"../../AnimatedSprite2D"
 @export var attackColor : Color
-@onready var isDayTime : bool = true
+@onready var NightTimer = get_tree().get_first_node_in_group("Cycler")
+
 func Enter():
 	weapon_holder.visible = true
 	attack_cooldown.start()
@@ -14,8 +15,7 @@ func Enter():
 	fsm_owner.velocity = Vector2.ZERO
 func Exit():
 	weapon_holder.visible = false
-	var colorShift = get_tree().create_tween()
-	colorShift.tween_property(animated_sprite_2d, "modulate", Color.WHITE, 0.1)
+	animated_sprite_2d.modulate = Color.WHITE
 func _on_attack_cooldown_timeout() -> void:
 	weapon_holder.shootWeapon()
 func Update(delta : float):
@@ -23,17 +23,22 @@ func Update(delta : float):
 	ChangeColorByAttackTime()
 	CheckForChangeStates()
 func CheckForChangeStates():
-	if(hasLeft && !isDayTime):
+	if(hasLeft && !NightTimer.DayTime):
 		Change.emit(self,"chase")
-	if(isDayTime):
+		animated_sprite_2d.modulate = Color.WHITE
+	if(NightTimer.DayTime):
 		Change.emit(self,"evade")
+		animated_sprite_2d.modulate = Color.WHITE
 func ChangeColorByAttackTime():
-	if(attack_cooldown.time_left > attack_cooldown.wait_time / 2):
-		var colorShift = get_tree().create_tween()
-		colorShift.tween_property(animated_sprite_2d, "modulate", Color.WHITE, attack_cooldown.wait_time)
-	if(attack_cooldown.time_left < attack_cooldown.wait_time / 2):
-		var colorShift = get_tree().create_tween()
-		colorShift.tween_property(animated_sprite_2d, "modulate", attackColor, attack_cooldown.wait_time)
+	if(!hasLeft):
+		if(attack_cooldown.time_left > attack_cooldown.wait_time / 2):
+			var colorShift = get_tree().create_tween()
+			colorShift.tween_property(animated_sprite_2d, "modulate", Color.WHITE, attack_cooldown.wait_time)
+		if(attack_cooldown.time_left < attack_cooldown.wait_time / 2):
+			var colorShift = get_tree().create_tween()
+			colorShift.tween_property(animated_sprite_2d, "modulate", attackColor, attack_cooldown.wait_time)
+		else:
+			animated_sprite_2d.modulate = Color.WHITE
 func MoveWeapon():
 	if(target != null):
 		var direction = (target.global_position - fsm_owner.global_position).normalized()

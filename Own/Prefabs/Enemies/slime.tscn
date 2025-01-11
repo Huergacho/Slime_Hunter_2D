@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://blhkbo2k4frwx"]
+[gd_scene load_steps=31 format=3 uid="uid://blhkbo2k4frwx"]
 
 [ext_resource type="Script" path="res://Own/Prefabs/Enemies/slime.gd" id="1_4pv1v"]
 [ext_resource type="Texture2D" uid="uid://77vg18sxtwkw" path="res://Own/Sprites/slime.png" id="3_ampyh"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://slime_Idle.gd" id="8_30f5c"]
 [ext_resource type="Script" path="res://Slime_Chase.gd" id="10_c2jtf"]
 [ext_resource type="Script" path="res://Own/Prefabs/Enemies/attack_state.gd" id="10_v67ai"]
+[ext_resource type="Script" path="res://Own/Scripts/IA/obstacle_avoidance.gd" id="13_6lfqu"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_12oal"]
 atlas = ExtResource("3_ampyh")
@@ -225,13 +226,14 @@ attackColor = Color(1, 0, 0, 0.501961)
 
 [node name="AttackCooldown" type="Timer" parent="State_Machine/Attack"]
 
-[node name="Raycasts" type="Node" parent="."]
+[node name="Obstacle Avoidance" type="Node" parent="."]
+script = ExtResource("13_6lfqu")
 
-[node name="RayCast2D" type="RayCast2D" parent="Raycasts"]
+[node name="RayCast2D" type="RayCast2D" parent="Obstacle Avoidance"]
 target_position = Vector2(22, -1)
 collision_mask = 4
 
-[node name="RayCast2D2" type="RayCast2D" parent="Raycasts"]
+[node name="RayCast2D2" type="RayCast2D" parent="Obstacle Avoidance"]
 position = Vector2(-2, 6)
 target_position = Vector2(27, 1)
 collision_mask = 4
