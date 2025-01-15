@@ -2,7 +2,7 @@ extends Node
 class_name State
 signal Change
 var fsm_owner
-func Enter():
+func Enter(args = null):
 	pass
 func Update(delta : float):
 	pass

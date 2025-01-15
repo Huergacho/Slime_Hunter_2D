@@ -6,9 +6,8 @@ var AttackCooldown : float = 0.3
 @onready var hasLeft : bool = false
 @onready var animated_sprite_2d: AnimatedSprite2D = $"../../AnimatedSprite2D"
 @export var attackColor : Color
-@onready var NightTimer = get_tree().get_first_node_in_group("Cycler")
 
-func Enter():
+func Enter(args = null):
 	weapon_holder.visible = true
 	attack_cooldown.start()
 	hasLeft = false
@@ -19,16 +18,7 @@ func Exit():
 func _on_attack_cooldown_timeout() -> void:
 	weapon_holder.shootWeapon()
 func Update(delta : float):
-	MoveWeapon()
 	ChangeColorByAttackTime()
-	CheckForChangeStates()
-func CheckForChangeStates():
-	if(hasLeft && !NightTimer.DayTime):
-		Change.emit(self,"chase")
-		animated_sprite_2d.modulate = Color.WHITE
-	if(NightTimer.DayTime):
-		Change.emit(self,"evade")
-		animated_sprite_2d.modulate = Color.WHITE
 func ChangeColorByAttackTime():
 	if(!hasLeft):
 		if(attack_cooldown.time_left > attack_cooldown.wait_time / 2):
@@ -39,10 +29,5 @@ func ChangeColorByAttackTime():
 			colorShift.tween_property(animated_sprite_2d, "modulate", attackColor, attack_cooldown.wait_time)
 		else:
 			animated_sprite_2d.modulate = Color.WHITE
-func MoveWeapon():
-	if(target != null):
-		var direction = (target.global_position - fsm_owner.global_position).normalized()
-		weapon_holder.current_weapon.look_at(target.global_position)
-		weapon_holder.current_weapon.global_position = fsm_owner.global_position + direction * weapon_holder.weapon_radius
-func _on_attack_area_body_exited(body:Node2D) -> void:
-	hasLeft = true
+func MoveWeapon(target : Vector2):
+	weapon_holder.current_weapon.global_position = fsm_owner.global_position + target * weapon_holder.weapon_radius

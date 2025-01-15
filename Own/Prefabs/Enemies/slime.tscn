@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://blhkbo2k4frwx"]
+[gd_scene load_steps=32 format=3 uid="uid://blhkbo2k4frwx"]
 
 [ext_resource type="Script" path="res://Own/Prefabs/Enemies/slime.gd" id="1_4pv1v"]
 [ext_resource type="Texture2D" uid="uid://77vg18sxtwkw" path="res://Own/Sprites/slime.png" id="3_ampyh"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://Slime_Chase.gd" id="10_c2jtf"]
 [ext_resource type="Script" path="res://Own/Prefabs/Enemies/attack_state.gd" id="10_v67ai"]
 [ext_resource type="Script" path="res://Own/Scripts/IA/obstacle_avoidance.gd" id="13_6lfqu"]
+[ext_resource type="Script" path="res://Own/Prefabs/Enemies/Slime_Controller.gd" id="14_3o18b"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_12oal"]
 atlas = ExtResource("3_ampyh")
@@ -201,30 +202,29 @@ unique_name_in_owner = true
 one_shot = true
 autostart = true
 
-[node name="State_Machine" type="Node" parent="." node_paths=PackedStringArray("default_state")]
+[node name="Slime_State_Machine" type="Node" parent="." node_paths=PackedStringArray("default_state")]
 script = ExtResource("7_jvybq")
 default_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="State_Machine"]
+[node name="Idle" type="Node" parent="Slime_State_Machine"]
 script = ExtResource("8_30f5c")
 wander_waitTime = 1.2
 SPEED = 6
 DETECTION_RADIO = 10
 
-[node name="Wander time" type="Timer" parent="State_Machine/Idle"]
-autostart = true
+[node name="Wander time" type="Timer" parent="Slime_State_Machine/Idle"]
 
-[node name="Chase" type="Node" parent="State_Machine"]
+[node name="Move" type="Node" parent="Slime_State_Machine"]
 script = ExtResource("10_c2jtf")
 SPEED = 30
 SPEED2 = 70
 DETECTION_RADIO = 10
 
-[node name="Attack" type="Node" parent="State_Machine"]
+[node name="Attack" type="Node" parent="Slime_State_Machine"]
 script = ExtResource("10_v67ai")
 attackColor = Color(1, 0, 0, 0.501961)
 
-[node name="AttackCooldown" type="Timer" parent="State_Machine/Attack"]
+[node name="AttackCooldown" type="Timer" parent="Slime_State_Machine/Attack"]
 
 [node name="Obstacle Avoidance" type="Node" parent="."]
 script = ExtResource("13_6lfqu")
@@ -238,21 +238,23 @@ position = Vector2(-2, 6)
 target_position = Vector2(27, 1)
 collision_mask = 4
 
+[node name="Controller" type="Node" parent="."]
+script = ExtResource("14_3o18b")
+
 [connection signal="die" from="HealthBar/LifeController" to="." method="_on_life_controller_die"]
 [connection signal="hit" from="HealthBar/LifeController" to="." method="_on_life_controller_hit"]
-[connection signal="bodyExited" from="Detection Area" to="State_Machine/Chase" method="_on_detection_area_body_exited"]
-[connection signal="setTarget" from="Detection Area" to="." method="_on_detection_area_set_target"]
-[connection signal="setTarget" from="Detection Area" to="State_Machine/Idle" method="_on_detection_area_set_target"]
+[connection signal="bodyExited" from="Detection Area" to="Controller" method="_on_detection_area_body_exited"]
+[connection signal="body_entered" from="Detection Area" to="Controller" method="_on_detection_area_body_entered"]
 [connection signal="area_entered" from="Attack_Area" to="Attack_Area" method="_on_area_entered"]
 [connection signal="area_exited" from="Attack_Area" to="Attack_Area" method="_on_area_exited"]
-[connection signal="bodyExited" from="Attack_Area" to="State_Machine/Attack" method="_on_attack_area_body_exited"]
+[connection signal="bodyExited" from="Attack_Area" to="Slime_State_Machine/Attack" method="_on_attack_area_body_exited"]
 [connection signal="body_entered" from="Attack_Area" to="Attack_Area" method="_on_body_entered"]
 [connection signal="body_exited" from="Attack_Area" to="Attack_Area" method="_on_body_exited"]
-[connection signal="setTarget" from="Attack_Area" to="State_Machine/Chase" method="_on_attack_area_set_target"]
+[connection signal="setTarget" from="Attack_Area" to="Slime_State_Machine/Move" method="_on_attack_area_set_target"]
 [connection signal="timeout" from="NavigationAgent2D/RefreshTimer" to="." method="_on_refresh_timer_timeout"]
 [connection signal="timeout" from="Attack Timer" to="." method="_on_attack_timer_timeout"]
-[connection signal="timeout" from="State_Machine/Idle/Wander time" to="State_Machine/Idle" method="_on_wander_time_timeout"]
-[connection signal="timeout" from="State_Machine/Attack/AttackCooldown" to="State_Machine/Attack" method="_on_attack_cooldown_timeout"]
+[connection signal="timeout" from="Slime_State_Machine/Idle/Wander time" to="Slime_State_Machine/Idle" method="_on_wander_time_timeout"]
+[connection signal="timeout" from="Slime_State_Machine/Attack/AttackCooldown" to="Slime_State_Machine/Attack" method="_on_attack_cooldown_timeout"]
 
 [editable path="HealthBar"]
 [editable path="Detection Area"]
